@@ -15,7 +15,11 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 var connector = new builder.ChatConnector({
     appId: process.env.MicrosoftAppId,
     appPassword: process.env.MicrosoftAppPassword
+<<<<<<< HEAD
     //stateEndpoint: process.env.BotStateEndpoint
+=======
+    //stateEndpoint: process.env.BotStateEndpoint,
+>>>>>>> origin/master
     //openIdMetadata: process.env.BotOpenIdMetadata
 });
 
