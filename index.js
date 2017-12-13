@@ -4,6 +4,8 @@ A simple echo bot for the Microsoft Bot Framework.
 
 var restify = require('restify');
 var builder = require('botbuilder');
+var apiaiRecognizer = require('./apiai_recognizer');
+var menus = require('./menus');
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -39,15 +41,17 @@ var bot = new builder.UniversalBot(connector);
 
 //const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v1/application?id=' + luisAppId + '&subscription-key=' + luisAPIKey;
 
+/*  *************************************************** LUIS MODEL ******************************************************************************************
+
 const LuisModelUrl = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/6a13aa8f-1ae3-4ceb-baff-1ecb4a98726e?subscription-key=7a8cc728767249589b45b66f34adcdcf&timezoneOffset=0&verbose=true&q=';
 
 
 // Main dialog with LUIS
 var recognizer = new builder.LuisRecognizer(LuisModelUrl);
 var intents = new builder.IntentDialog({ recognizers: [recognizer] })
-    /*
-    .matches('<yourIntent>')... See details at http://docs.botframework.com/builder/node/guides/understanding-natural-language/
-    */
+    
+    //.matches('<yourIntent>')... See details at http://docs.botframework.com/builder/node/guides/understanding-natural-language/
+    
     .matches('Saludo', (session, args) => {
         session.send('greet found by luis');
         console.log(args);
@@ -77,5 +81,65 @@ function sendInternetUrl(session, url, contentType, attachmentFileName) {
 }
 
 bot.dialog('/', intents);
+*/
+//*********************************************************************** API AI MODEL ***************************************************************************
+var intents = new builder.IntentDialog({
+    recognizers: [
+        apiaiRecognizer
+    ],
+    intentThreshold: 0.2,
+    recognizeOrder: builder.RecognizeOrder.series
+});
+
+intents.matches('restaurant.menus', '/restaurant.menus');
+intents.matches('restaurant.location', '/restaurant.location');
+intents.matches('restaurant.timings', '/restaurant.timings');
+
+bot.dialog('/', intents);
+
+// Intent: restaurant.menus
+bot.dialog('/restaurant.menus', [
+    function (session, args, next) {
+        var cards = [];
+
+        menus.forEach(function (menu) {
+            var card = new builder.HeroCard(session)
+                .title(menu.name)
+                .subtitle(menu.subtitle)
+                .text(menu.text)
+                .images([
+                    builder.CardImage.create(session, menu.image)
+                ])
+                .buttons([
+                    builder.CardAction.openUrl(session, menu.url, 'Order Now')
+                ]);
+
+            cards.push(card);
+        })
+
+        var reply = new builder.Message(session)
+            .attachmentLayout(builder.AttachmentLayout.carousel)
+            .attachments(cards);
+
+        session.endDialog(reply);
+    }
+]);
+
+// Intent: restaurant.location
+bot.dialog('/restaurant.location', [
+    function (session, args, next) {
+        session.endDialog('You can find us at San Francisco 987, Santiago.');
+    }
+]);
+
+// Intent: restaurant.timings
+bot.dialog('/restaurant.timings', [
+    function (session, args, next) {
+        session.endDialog('We are open Monday to Friday from 2 PM to 11 PM.');
+    }
+]);
+
+
+
 
 
