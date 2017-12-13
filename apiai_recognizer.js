@@ -1,6 +1,6 @@
 var apiai = require('apiai');
 
-var app = apiai('<api.ai token>');
+var app = apiai('955aee67cb244a6f8167943383876ca0');
 
 module.exports = {
     recognize: function (context, callback) {
