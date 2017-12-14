@@ -6,6 +6,7 @@ var restify = require('restify');
 var builder = require('botbuilder');
 var apiaiRecognizer = require('./apiai_recognizer');
 var menus = require('./salas');
+var peticion_preventa = require('./peticion_preventa');
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -92,6 +93,7 @@ var intents = new builder.IntentDialog({
 });
 
 intents.matches('salas.tipologia', '/salas.tipologia');
+intents.matches('peticion.preventa', '/peticion.preventa');
 intents.matches('restaurant.location', '/restaurant.location');
 intents.matches('restaurant.timings', '/restaurant.timings');
 
@@ -125,6 +127,33 @@ bot.dialog('/salas.tipologia', [
     }
 ]);
 
+// Intent: peticion.preventa
+bot.dialog('/peticion.preventa', [
+    function (session, args, next) {
+        var cards = [];
+
+        peticion_preventa.forEach(function (peticion) {
+            var card = new builder.HeroCard(session)
+                .title(peticion.name)
+                .subtitle(peticion.subtitle)
+                .text(peticion.text)
+                .images([
+                    builder.CardImage.create(session, peticion.image)
+                ])
+                .buttons([
+                    builder.CardAction.openUrl(session, peticion.url, 'Mas Informacion')
+                ]);
+
+            cards.push(card);
+        })
+
+        var reply = new builder.Message(session)
+            .attachmentLayout(builder.AttachmentLayout.carousel)
+            .attachments(cards);
+
+        session.endDialog(reply);
+    }
+]);
 // Intent: restaurant.location
 bot.dialog('/restaurant.location', [
     function (session, args, next) {
