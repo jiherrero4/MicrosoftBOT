@@ -5,7 +5,7 @@ A simple echo bot for the Microsoft Bot Framework.
 var restify = require('restify');
 var builder = require('botbuilder');
 var apiaiRecognizer = require('./apiai_recognizer');
-var menus = require('./menus');
+var menus = require('./salas');
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -91,14 +91,14 @@ var intents = new builder.IntentDialog({
     recognizeOrder: builder.RecognizeOrder.series
 });
 
-intents.matches('restaurant.menus', '/restaurant.menus');
+intents.matches('salas.tipologia', '/salas.tipologia');
 intents.matches('restaurant.location', '/restaurant.location');
 intents.matches('restaurant.timings', '/restaurant.timings');
 
 bot.dialog('/', intents);
 
 // Intent: restaurant.menus
-bot.dialog('/restaurant.menus', [
+bot.dialog('/salas.tipologia', [
     function (session, args, next) {
         var cards = [];
 
