@@ -111,7 +111,7 @@ bot.dialog('/salas.tipologia', [
                     builder.CardImage.create(session, menu.image)
                 ])
                 .buttons([
-                    builder.CardAction.openUrl(session, menu.url, 'Order Now')
+                    builder.CardAction.openUrl(session, menu.url, 'Mas Informacion')
                 ]);
 
             cards.push(card);
