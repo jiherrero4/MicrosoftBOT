@@ -1,24 +1,33 @@
-[{
-        "name": "DELUXE VEGGIE",
-        "subtitle": "Onion I Crisp Capsicum I Mushroom I Golden Corn I Paneer",
-        "text": "",
-        "image": "https://l1.pizzainindia.com/assets/osc/ABAAA/images/products/originals/deluxeveg.png",
-        "url": "https://pizzaonline.dominos.co.in"
-    },
+[
+  {
+    "name": "SALA HUDDLE",
+    "subtitle": "Sala preparada para albergar reuniones de pequeños equipos",
+    "text": "",
+    "image": "https://technotrends-my.sharepoint.com/personal/jiherrero_ttrends_es/_layouts/15/guestaccess.aspx?docid=12895ee1d510d4dc782a36ae97b465e27&authkey=AdCkeXmnSWZA8ggUDxhcYrk&e=da38a86a176f439e80e4691e087182aa",
+    "url": "https://pizzaonline.dominos.co.in"
+  },
 
-    {
-        "name": "5 PEPPER",
-        "subtitle": "Capsicum I Red and Yellow Bell Pepper I Jalapeno I Red Paprika",
-        "text": "",
-        "image": "https://l1.pizzainindia.com/assets/osc/ABAAA/images/products/originals/five-peppers.png",
-        "url": "https://pizzaonline.dominos.co.in"
-    },
+  {
+    "name": "SALA MEETING",
+    "subtitle": "Reuniones de 4 a 12 participantes",
+    "text": "",
+    "image": "https://technotrends-my.sharepoint.com/personal/jiherrero_ttrends_es/_layouts/15/guestaccess.aspx?docid=16444cc00fcfa4d9fac09295ce5257248&authkey=AVpEeS06wUmtRn9HktMN6A0&e=bce0c048736a44e088450f51fbe03aba",
+    "url": "https://pizzaonline.dominos.co.in"
+  },
 
-    {
-        "name": "VEG EXTRAVAGANZA",
-        "subtitle": "Black Olives I Onion I Crisp Capsicum I Mushroom I FreshTomato I Golden Corn I Jalapeno I Extra Cheese",
-        "text": "",
-        "image": "https://l1.pizzainindia.com/assets/osc/ABAAA/images/products/originals/vegextra.png",
-        "url": "https://pizzaonline.dominos.co.in"
-    }
+  {
+    "name": "SALA BOARD ROOM",
+    "subtitle": "Destinada a albergar reuniones formales y de Consejo",
+    "text": "",
+    "image": "https://technotrends-my.sharepoint.com/personal/jiherrero_ttrends_es/_layouts/15/guestaccess.aspx?docid=109b72ca1a08344339a2aeb2e7c0ade23&authkey=Ae22INsZo21GT_Ux-qYP7mk&e=903f4ec35b8a477ea777c128ef47f094",
+    "url": "https://pizzaonline.dominos.co.in"
+  },
+
+  {
+    "name": "SALA COLLABORATION",
+    "subtitle": "Sala pensada para trabajo colaborativo",
+    "text": "",
+    "image": "https://technotrends-my.sharepoint.com/personal/jiherrero_ttrends_es/_layouts/15/guestaccess.aspx?docid=15b982467f5ca44c9a5b7d7ee6dc289eb&authkey=AZg5BXA6C6G5iZbdVQu6jNQ&e=e6e9ca64933b43039be05da0e54dddbd",
+    "url": "https://pizzaonline.dominos.co.in"
+  }
 ]
