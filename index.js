@@ -35,6 +35,9 @@ server.post('/', connector.listen());
 // Create your bot with a function to receive messages from the user
 var bot = new builder.UniversalBot(connector);
 
+
+/*  ************************************************************** LUIS MODEL ******************************************************************************************
+
 // Make sure you add code to validate these fields
 //var luisAppId = process.env.LuisAppId;
 //var luisAPIKey = process.env.LuisAPIKey;
@@ -42,7 +45,7 @@ var bot = new builder.UniversalBot(connector);
 
 //const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v1/application?id=' + luisAppId + '&subscription-key=' + luisAPIKey;
 
-/*  *************************************************** LUIS MODEL ******************************************************************************************
+
 
 const LuisModelUrl = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/6a13aa8f-1ae3-4ceb-baff-1ecb4a98726e?subscription-key=7a8cc728767249589b45b66f34adcdcf&timezoneOffset=0&verbose=true&q=';
 
@@ -94,6 +97,7 @@ var intents = new builder.IntentDialog({
 
 intents.matches('salas.tipologia', '/salas.tipologia');
 intents.matches('peticion.preventa', '/peticion.preventa');
+intents.matches('informacion.endpoints', '/informacion.endpoints');
 intents.matches('restaurant.location', '/restaurant.location');
 intents.matches('restaurant.timings', '/restaurant.timings');
 
@@ -141,7 +145,7 @@ bot.dialog('/peticion.preventa', [
                     builder.CardImage.create(session, peticion.image)
                 ])
                 .buttons([
-                    builder.CardAction.openUrl(session, peticion.url, 'Mas Informacion')
+                    builder.CardAction.openUrl(session, peticion.url, 'Pedir recurso')
                 ]);
 
             cards.push(card);
@@ -152,6 +156,25 @@ bot.dialog('/peticion.preventa', [
             .attachments(cards);
 
         session.endDialog(reply);
+    }
+]);
+
+// Intent: informacion.endpoints
+bot.dialog('/informacion.endpoints', [
+    function (session, args) {
+        var model = builder.EntityRecognizer.findEntity(args.entities, 'Modelo_Videoconferencias');
+        if (model) {
+            var model_name = model.entity;
+            session.send("Se ha solicitado informacion del modelo" + model_name);
+           
+        } else {
+            builder.Prompts.text(session, 'Cual es el modelo solicitado?');
+        }
+    },
+    function (session, results) {
+        var model_name = results.response;
+        session.send("Se ha solicitado informacion del modelo" + model_name);
+        });
     }
 ]);
 // Intent: restaurant.location
