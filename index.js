@@ -147,7 +147,7 @@ bot.dialog('/informacion.endpoints', [
     },
     function (session, results) {
         var model_name = results.response;
-        session.send("Se ha solicitado informacion del modelo" + model_name);
+        session.send("Se ha solicitado informacion del modelo " + model_name);
     }
 ]);
 // Intent: restaurant.location
