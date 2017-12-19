@@ -139,7 +139,7 @@ bot.dialog('/informacion.endpoints', [
         var model = builder.EntityRecognizer.findEntity(args.entities, 'Modelo_Videoconferencias');
         if (model) {
             var model_name = model.entity;
-            session.send("Se ha solicitado informacion del modelo: " + model_name);
+            session.endDialog("Se ha solicitado informacion del modelo: " + model_name);
            
         } else {
             builder.Prompts.text(session, 'Cual es el modelo solicitado?');
@@ -147,7 +147,7 @@ bot.dialog('/informacion.endpoints', [
     },
     function (session, results) {
         var model_name = results.response;
-        session.send("Se ha solicitado informacion del modelo " + model_name);
+        session.endDialog("Se ha solicitado informacion del modelo " + model_name);
     }
 ]);
 // Intent: restaurant.location
