@@ -7,6 +7,7 @@ var builder = require('botbuilder');
 var apiaiRecognizer = require('./apiai_recognizer');
 var menus = require('./salas');
 var peticion_preventa = require('./peticion_preventa');
+var endpoints = require('./endpoints');
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -139,16 +140,65 @@ bot.dialog('/informacion.endpoints', [
         var model = builder.EntityRecognizer.findEntity(args.entities, 'Modelo_Videoconferencias');
         if (model) {
             var model_name = model.entity;
-            session.endDialog("Se ha solicitado informacion del modelo: " + model_name);
-           
+            endpoints.forEach(function (endpoint) {
+                if (endpoint.name == model_name){
+                    var card = new builder.HeroCard(session)
+                        .title(endpoint.name)
+                            .subtitle(endpoint.subtitle)
+                                .text(endpoint.text)
+                                    .images([
+                                        builder.CardImage.create(session, endpoint.image)
+                                    ])
+                                    .buttons([
+                                        builder.CardAction.openUrl(session, endpoint.url, 'Mas informacion')
+                                    ]);
+
+                    cards.push(card);
+                    var reply = new builder.Message(session)
+                        .attachmentLayout(builder.AttachmentLayout.carousel)
+                        .attachments(cards);
+
+                    session.endDialog(reply)
+                }
+
+
+            })
+            session.endDialog("No he encontrado en mi base de datos información de este modelo de equipo...")
+            
+
         } else {
-            builder.Prompts.text(session, 'Cual es el modelo solicitado?');
+            builder.Prompts.text(session, 'Por favor, especifique el modelo de equipo');
         }
     },
     function (session, results) {
         var model_name = results.response;
-        session.endDialog("Se ha solicitado informacion del modelo " + model_name);
+        endpoints.forEach(function (endpoint) {
+            if (endpoint.name == model_name) {
+                var card = new builder.HeroCard(session)
+                    .title(endpoint.name)
+                    .subtitle(endpoint.subtitle)
+                    .text(endpoint.text)
+                    .images([
+                        builder.CardImage.create(session, endpoint.image)
+                    ])
+                    .buttons([
+                        builder.CardAction.openUrl(session, endpoint.url, 'Mas informacion')
+                    ]);
+
+                cards.push(card);
+                var reply = new builder.Message(session)
+                    .attachmentLayout(builder.AttachmentLayout.carousel)
+                    .attachments(cards);
+
+                session.endDialog(reply)
+            }
+
+        })
+        session.endDialog("No he encontrado en mi base de datos información de este modelo de equipo...")
+      
+        
     }
+  
 ]);
 // Intent: restaurant.location
 bot.dialog('/restaurant.location', [
