@@ -163,7 +163,7 @@ bot.dialog('/informacion.endpoints', [
 
 
             })
-            session.endDialog("No he encontrado en mi base de datos información de este modelo de equipo...")
+            session.endDialog("No he encontrado en mi base de datos información el modelo " + model_name)
             
 
         } else {
@@ -194,7 +194,7 @@ bot.dialog('/informacion.endpoints', [
             }
 
         })
-        session.endDialog("No he encontrado en mi base de datos información de este modelo de equipo...")
+        session.endDialog("No he encontrado en mi base de datos información el modelo " + model_name)
       
         
     }
