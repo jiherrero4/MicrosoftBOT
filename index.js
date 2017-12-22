@@ -137,23 +137,17 @@ bot.dialog('/peticion.preventa', [
 // Intent: informacion.endpoints
 bot.dialog('/informacion.endpoints', [
     function (session, args) {
-        var model = builder.EntityRecognizer.findEntity(args.intent.entities, 'Modelo_Videoconferencias');
+        var cards = [];
+
+        var model = builder.EntityRecognizer.findEntity(args.entities, 'Modelo_Videoconferencias');
         if (model) {
             var model_name = model.entity;
             endpoints.forEach(function (endpoint) {
                 if (endpoint.name == model_name){
-                    var card = new builder.HeroCard(session)
-                        .title(endpoint.name)
-                            .subtitle(endpoint.subtitle)
-                                .text(endpoint.text)
-                                    .images([
-                                        builder.CardImage.create(session, endpoint.image)
-                                    ])
-                                    .buttons([
-                                        builder.CardAction.openUrl(session, endpoint.url, 'Mas informacion')
-                                    ]);
 
+                    card = endpoint.cardsAsAttachment
                     cards.push(card);
+
                     var reply = new builder.Message(session)
                         .attachmentLayout(builder.AttachmentLayout.carousel)
                         .attachments(cards);
@@ -213,6 +207,19 @@ bot.dialog('/restaurant.timings', [
         session.endDialog('We are open Monday to Friday from 2 PM to 11 PM.');
     }
 ]);
+
+function cardsAsAttachment(card) {
+    return new builder.HeroCard()
+        .title(card.name)
+        .subtitle(card.subtitle)
+        .text(card.text)
+        .images([
+            builder.CardImage.create(session, card.image)
+        ])
+        .buttons([
+            builder.CardAction.openUrl(session, card.url, 'Mas informacion')
+        ]);
+}
 
 
 
