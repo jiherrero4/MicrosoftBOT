@@ -137,7 +137,7 @@ bot.dialog('/peticion.preventa', [
 // Intent: informacion.endpoints
 bot.dialog('/informacion.endpoints', [
     function (session, args) {
-        var model = builder.EntityRecognizer.findEntity(args.entities, 'Modelo_Videoconferencias');
+        var model = builder.EntityRecognizer.findEntity(args.intent.entities, 'Modelo_Videoconferencias');
         if (model) {
             var model_name = model.entity;
             endpoints.forEach(function (endpoint) {
