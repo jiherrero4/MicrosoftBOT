@@ -148,16 +148,15 @@ bot.dialog('/informacion.endpoints', [
                     card = endpoint.cardsAsAttachment
                     cards.push(card);
 
-                    var reply = new builder.Message(session)
-                        .attachmentLayout(builder.AttachmentLayout.carousel)
-                        .attachments(cards);
-
-                    session.endDialog(reply)
                 }
-
-
+  
             })
-            session.endDialog("No he encontrado en mi base de datos información el modelo " + model_name)
+            var reply = new builder.Message(session)
+                .attachmentLayout(builder.AttachmentLayout.carousel)
+                .attachments(cards);
+
+            session.endDialog(reply)
+            //session.endDialog("No he encontrado en mi base de datos información el modelo " + model_name)
             
 
         } else {
